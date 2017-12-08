@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <div id="root">
+      <h1>
+        {{ reversedMessage }}
+      </h1>
+      <h2>All Tasks</h2>
+      <ul>
+        <li v-for="task in tasks">
+          <label>
+          <input type="checkbox" v-model="task.completed" />
+          {{ task.description }}
+          </label>
+        </li>
+      </ul>
+
+      <h2>Incomplete Tasks</h2>
+      <ul>
+        <li v-for="task in incompleteTasks">
+          <label>
+          <input type="checkbox" v-model="task.completed" />
+          {{ task.description }}
+          </label>
+        </li>
+      </ul>
+
+      <h2>Complete Tasks</h2>
+      <ul>
+        <li v-for="task in completeTasks">
+          <label>
+          <input type="checkbox" v-model="task.completed" />
+          {{ task.description }}
+          </label>
+        </li>
+      </ul>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+      var app = new Vue({
+        el: '#root',
+
+        data: {
+          message: 'Hello World',
+          tasks: [
+            { description: 'Go to store', completed: true },
+            { description: 'Go to station', completed: true },
+            { description: 'Go to shop', completed: true },
+            { description: 'Go to post office', completed: false },
+            { description: 'Go home', completed: false },
+          ],
+        },
+
+        methods: {
+          toggleComplete(task) {
+            task.completed = ! task.completed
+          }
+        },
+
+        computed: {
+          reversedMessage() {
+            return this.message.split('').reverse().join('')
+          },
+          completeTasks() {
+            return this.tasks.filter(task => task.completed)
+          },
+          incompleteTasks() {
+            return this.tasks.filter(task => ! task.completed)
+          },
+        }
+      })
+    </script>
+  </body>
+</html>
